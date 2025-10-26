@@ -1,4 +1,4 @@
-package com.yatralink.yatralink;
+package com.yatralink;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
