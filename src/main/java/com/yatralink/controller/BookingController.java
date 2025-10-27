@@ -3,6 +3,8 @@ package com.yatralink.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,13 @@ public class BookingController {
 
     @GetMapping("/user/{email}")
     public List<Booking> getBookingByUser(@PathVariable String email){
+        User user=userService.getUserByEmail(email);
+        return bookingService.getBookingsByUser(user);
+    }
+
+    @GetMapping("/me")
+    public List<Booking> myBookings(@AuthenticationPrincipal UserDetails userDetails){
+        String email=userDetails.getUsername(); // email
         User user=userService.getUserByEmail(email);
         return bookingService.getBookingsByUser(user);
     }
